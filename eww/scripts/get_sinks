@@ -1,0 +1,3 @@
+#!/bin/bash
+default_sink=$(pactl --format=json info | jq -crM ".default_sink_name")
+pactl --format=json list sinks | jq -crM "[.[] | {name: .name, description: .description, default: (.name == \"$default_sink\")}]"

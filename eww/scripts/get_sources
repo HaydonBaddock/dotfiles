@@ -1,0 +1,3 @@
+#!/bin/bash
+default_source=$(pactl --format=json info | jq -crM ".default_source_name")
+pactl --format=json list sources | jq -crM "[.[] | {name: .name, description: .description, default: (.name == \"$default_source\")}]"

@@ -1,0 +1,2 @@
+#!/bin/bash
+pactl get-sink-volume @DEFAULT_SINK@ | head -1 | cut -d '/' -f 2 | tr -d ' %'

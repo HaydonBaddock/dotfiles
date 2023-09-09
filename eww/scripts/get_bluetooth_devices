@@ -1,0 +1,48 @@
+#!/bin/bash
+
+declare -A processed_devices
+first=true
+
+printf '['
+
+# Get connected devices
+connected=$(bluetoothctl devices Connected)
+if [ -n "$connected" ]; then
+    while IFS= read -r line; do
+        mac_address=$(echo "$line" | cut -d' ' -f 2)
+
+        if [ "${processed_devices[$mac_address]}" != true ]; then
+            processed_devices["$mac_address"]=true
+
+            if ! $first; then
+                printf ','
+            fi
+            first=false
+
+            name=$(echo "$line" | cut -d' ' -f 3)
+            printf "{\"mac_address\":\"$mac_address\",\"name\":\"$name\",\"connected\":true}"
+        fi
+    done <<< "$connected"
+fi
+
+# Get paired devices
+paired=$(bluetoothctl devices Paired)
+if [ -n "$paired" ]; then
+    while IFS= read -r line; do
+        mac_address=$(echo "$line" | cut -d' ' -f 2)
+
+        if [ "${processed_devices[$mac_address]}" != true ]; then
+            processed_devices["$mac_address"]=true
+
+            if ! $first; then
+                printf ','
+            fi
+            first=false
+
+            name=$(echo "$line" | cut -d' ' -f 3)
+            printf "{\"mac_address\":\"$mac_address\",\"name\":\"$name\",\"connected\":false}"
+        fi
+    done <<< "$paired"
+fi
+
+printf ']\n'

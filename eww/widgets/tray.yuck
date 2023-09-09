@@ -1,0 +1,24 @@
+(defwidget tray []
+  (button :visible "${hidden == '[]' ? 'false' : 'true'}"
+          :onclick "scripts/toggle_window bar_group tray_window"
+    (icon :char "󰅀" :y "-5" :size "24pt")))
+
+(defwindow tray_window :monitor 0
+                       :geometry (geometry :x "27%"
+                                           :width "2%"
+                                           :anchor "top left")
+                       :stacking "fg"
+  (box :class "root modal"
+       :orientation "v"
+       :space-evenly false
+    (for i in hidden
+      (button :tooltip "${i.title}"
+              :onclick "scripts/show_window ${i.address} && scripts/toggle_window bar_group tray_window"
+              :onrightclick "scripts/close_window ${i.address}"
+          (image :path {i.icon}
+                 :image-width 20
+                 :image-height 20)
+            ))))
+
+(deflisten hidden
+  "scripts/listen_windows special:hidden")

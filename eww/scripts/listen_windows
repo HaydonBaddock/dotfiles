@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Usage:
+# $1: The workspace to list the clients of.
+
+emit() {
+    clients=$(hyprctl -j clients | jq -rM "[.[] | select(.workspace.name == \"$1\") | select(.class != \"\") | {class: (if .class == \"firefoxdeveloperedition\" then \"firefox-developer-edition\" else .class end), address: .address, title: .title}]")
+
+    while IFS= read -r line; do
+        if [[ "${line:4:7}" == '"class"' ]]; then
+            class="${line:14:-2}"
+            icon=$(geticons $class | head -1)
+            printf "\"icon\":\"$icon\","
+        else
+            printf "$line"
+        fi
+    done <<< "$clients"
+    printf '\n'
+}
+
+emit $1
+
+socat -u "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - |
+while read -r line; do
+    case ${line%>>*} in
+        movewindow|closewindow*)
+            emit $1
+            ;;
+    esac
+done

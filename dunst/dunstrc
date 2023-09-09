@@ -1,0 +1,31 @@
+[global]
+monitor = 1
+width = 496
+notification_limit = 1
+offset = 8x-36
+padding = 8
+horizontal_padding = 12
+frame_width = 0
+gap_size = 8
+sort = false
+font = "Monospace 10"
+format = "<b>%s</b>   %b"
+show_age_threshold = -1
+ignore_newline = true
+ignore_newline = false
+corner_radius = 18
+
+[urgency_low]
+foreground = "#ffffffff"
+background = "#00000001"
+timeout = 10
+
+[urgency_normal]
+foreground = "#ffffffff"
+background = "#81a321ff"
+timeout = 999999
+
+[urgency_critical]
+foreground = "#ffffffff"
+background = "#b0b030ff"
+timeout = 999999

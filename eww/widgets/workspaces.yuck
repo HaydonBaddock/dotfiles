@@ -1,0 +1,25 @@
+(defwidget workspaces []
+  (box :class "workspaces"
+       :spacing 4
+       :space-evenly true
+
+    (for i in workspaces
+      (button :onclick "scripts/go_to_workspace_pair ${i}"
+              :onmiddleclick "scripts/move_window ${i}"
+        (overlay
+          (label :class "invisible"
+                 :text ".....")
+          (overlay
+            (transform :class "active ${i == active_workspace ? '' : 'invisible'}"
+                       :translate-y "-4px"
+              (label :text "◉"))
+            (transform :class "inactive ${i == active_workspace ? 'invisible' : ''}"
+                       :translate-y "-7px"
+              (label :text "⚪"))))))))
+
+
+(defvar workspaces "[1,2,3,4]")
+
+
+(deflisten active_workspace
+  "scripts/listen_active_workspace_pair")

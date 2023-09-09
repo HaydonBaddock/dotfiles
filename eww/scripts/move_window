@@ -1,0 +1,4 @@
+#!/bin/bash
+workspace=$(hyprctl -j activewindow | jq -crM ".workspace.id")
+dest=$(($1*2-$workspace%2))
+hyprctl dispatch movetoworkspacesilent $dest

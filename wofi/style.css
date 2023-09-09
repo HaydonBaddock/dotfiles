@@ -1,0 +1,54 @@
+#window {
+    /* background-color: rgba(33, 33, 33, 0.33); */
+    background-color: rgba(0, 0, 0, 0.01);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+}
+
+#outer-box {
+    padding: 8px;
+}
+
+#input {
+    /* background-color: rgba(33, 33, 33, 0.33); */
+    background-color: rgba(0, 0, 0, 0.01);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    border-width: 0px;
+}
+
+#scroll {
+
+}
+
+#inner-box {
+    margin-top: 8px;
+}
+
+#img {
+    margin-right: 16px;
+}
+
+#text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#text:selected {
+
+}
+
+#entry {
+    border-radius: 18px;
+}
+
+#entry:unselected {
+
+}
+
+#entry:selected {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+list {
+    background-color: rgba(0, 0, 0, 0);
+}

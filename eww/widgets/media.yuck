@@ -1,0 +1,8 @@
+(defwidget media []
+  (label :class "subtle"
+         :text media
+         :limit-width 75
+         :xalign 0.5))
+
+(deflisten media
+  "playerctl metadata --follow --format '{{title}}'")

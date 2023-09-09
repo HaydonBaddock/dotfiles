@@ -1,0 +1,25 @@
+(defwidget microphone []
+  (button :onclick "scripts/toggle_window bar_group microphone_window"
+    (icon :char "󰍬" :y "-3" :size "18pt")))
+
+
+(defwindow microphone_window :monitor 0
+                             :geometry (geometry :x "20%"
+                                                 :width "10%"
+                                                 :anchor "top right")
+                             :stacking "fg"
+  (box :class "root modal"
+       :orientation "v"
+       :space-evenly false
+
+    (box :class "title"
+      (label :halign "start"
+             :text "Microphone"))
+
+    (for i in mics
+      (button :onclick "scripts/set_default_source ${i.name}"
+        (label :class "${i.default == 'true' ? 'highlight' : ''}"
+               :text "${i.description}")))))
+
+
+(deflisten mics "scripts/get_sources")

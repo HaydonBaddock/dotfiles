@@ -1,0 +1,3 @@
+#!/bin/bash
+active_workspace=$(~/.config/eww/scripts/get_active_workspace)
+hyprctl dispatch movetoworkspacesilent $active_workspace,address:$1

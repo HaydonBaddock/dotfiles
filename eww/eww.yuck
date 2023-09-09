@@ -1,0 +1,41 @@
+(include "./components/icon.yuck")
+
+(include "./widgets/launcher.yuck")
+(include "./widgets/workspaces.yuck")
+(include "./widgets/tray.yuck")
+(include "./widgets/minimised.yuck")
+(include "./widgets/clock.yuck")
+(include "./widgets/media.yuck")
+(include "./widgets/bluetooth.yuck")
+(include "./widgets/microphone.yuck")
+(include "./widgets/sound.yuck")
+(include "./widgets/power.yuck")
+
+
+(defwindow bar :monitor 0
+               :geometry (geometry :width "60%"
+                                   :anchor "top center")
+               :stacking "fg"
+               :exclusive true
+               :windowtype "dock"
+  (centerbox :class "root"
+    (box :halign "start"
+         :spacing 32
+         :space-evenly false
+      (launcher)
+      (workspaces)
+      (tray)
+      (minimised))
+    (clock)
+    (box :space-evenly false
+      (box :hexpand true
+        (media))
+      (box :halign "end"
+           :spacing 8
+        (bluetooth)
+        (microphone)
+        (sound)
+        (power)))))
+
+
+(defvar bar_group "")

@@ -1,0 +1,7 @@
+(defwidget icon [char y size]
+  (overlay
+    (label :class "invisible"
+           :text ".......")
+    (transform :translate-y y
+      (label :style "font-size: ${size}"
+             :text char))))

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -o -E 'yes|no')
+
+if [ "$muted" = "yes" ]; then
+    pactl set-sink-mute @DEFAULT_SINK@ false
+    eww update muted="no"
+else
+    pactl set-sink-mute @DEFAULT_SINK@ true
+    eww update muted="yes"
+fi

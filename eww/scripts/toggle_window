@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Usage:
+# $1 (required) The group that the window is a part of.
+# $2 (optional) The window to open.
+# Only one window can be open at a time per group.
+
+open_window() {
+    eww open $2
+    eww update $1=$2
+}
+
+close_window() {
+    eww close $2
+    eww update $1=""
+}
+
+open_window=$(eww get $1)
+if [[ $# -eq 1 || $open_window = $2 ]]; then
+    close_window $1 $open_window
+elif [[ $open_window = "" ]]; then
+    open_window $1 $2
+else
+    close_window $1 $open_window
+    open_window $1 $2
+fi
