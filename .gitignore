@@ -1,0 +1,14 @@
+*
+
+!.gitignore
+
+!dunst/
+!dunst/**
+!eww/
+!eww/**
+!hypr/
+!hypr/**
+!kitty/
+!kitty/**
+!wofi/
+!wofi/**
