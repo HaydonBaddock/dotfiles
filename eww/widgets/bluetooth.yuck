@@ -1,6 +1,6 @@
 (defwidget bluetooth []
   (button :onclick "scripts/toggle_window bar_group bluetooth_window"
-    (icon :char "󰂯" :y "-3" :size "18pt")))
+    (icon :char "󰂯" :y "0" :size "18pt")))
 
 
 (defwindow bluetooth_window :monitor 0
@@ -8,16 +8,22 @@
                                             :width "10%"
                                             :anchor "top right")
                         :stacking "fg"
-  (box :class "root modal"
+  (box :class "root"
        :orientation "v"
        :space-evenly false
 
     (box :class "title"
-      (label :halign "start"
-             :text "Bluetooth"))
+         :space-evenly false
+      (label :hexpand true
+             :halign "start"
+             :text "Bluetooth")
+      (button :halign "end"
+              :onclick "scripts/toggle_bluetooth"
+        (label :text "toggle")))
 
     (for i in bluetooth_devices
-      (button :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
+      (button :class "background-hover-effect"
+              :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
         (label :class "${i.connected == 'true' ? 'highlight' : ''}"
                :text "${i.name}")))))
 
@@ -25,3 +31,6 @@
 (defpoll bluetooth_devices :interval "1s"
                            :run-while {bar_group == "bluetooth_window"}
   "scripts/get_bluetooth_devices")
+
+
+(defvar bluetooth_enabled "true")

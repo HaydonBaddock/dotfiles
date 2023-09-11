@@ -1,6 +1,10 @@
 (defwidget sound []
   (button :onclick "scripts/toggle_window bar_group sound_window"
-    (icon :char "󰕾" :y "-3" :size "18pt")))
+    (overlay
+      (icon :visible {muted == 'false' && sink_volume > 0}
+            :char "󰕾" :y "0" :size "18pt")
+      (icon :visible {muted == 'true' || sink_volume == 0}
+            :char "󰖁" :y "0" :size "18pt"))))
 
 
 (defwindow sound_window :monitor 0
@@ -8,30 +12,30 @@
                                             :width "10%"
                                             :anchor "top right")
                         :stacking "fg"
-  (box :class "root modal"
+  (box :class "root"
        :orientation "v"
        :space-evenly false
 
-    (centerbox :class "title"
-               :spacing 16
-               :space-evenly false
-      (label :halign "start"
+    (box :class "title"
+         :space-evenly false
+      (label :hexpand true
+             :halign "start"
              :text "Sound")
-      (box)
       (scale :halign "end"
-             :width 150
+             :width 100
              :min 0
              :max 100
-             :value volume
+             :value sink_volume
              :onchange "scripts/set_sink_volume {}"))
 
     (for i in sinks
-      (button :onclick "scripts/set_default_sink ${i.name}"
+      (button :class "background-hover-effect"
+              :onclick "scripts/set_default_sink ${i.name}"
         (label :class "${i.default == 'true' ? 'highlight' : ''}"
                :text "${i.description}")))))
 
 
-(defpoll volume :interval "0.1s"
+(defpoll sink_volume :interval "0.1s"
                 :run-while {bar_group == "sound_window"}
   "scripts/get_sink_volume")
 
@@ -39,4 +43,4 @@
 (deflisten sinks "scripts/get_sinks")
 
 
-(defvar muted "no")
+(defvar muted "false")

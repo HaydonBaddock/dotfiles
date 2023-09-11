@@ -5,6 +5,7 @@
 (include "./widgets/tray.yuck")
 (include "./widgets/minimised.yuck")
 (include "./widgets/clock.yuck")
+(include "./widgets/updates.yuck")
 (include "./widgets/media.yuck")
 (include "./widgets/bluetooth.yuck")
 (include "./widgets/microphone.yuck")
@@ -19,15 +20,18 @@
                :exclusive true
                :windowtype "dock"
   (centerbox :class "root"
+             :style "padding: 4px 8px"
     (box :halign "start"
-         :spacing 32
+         :spacing 22
          :space-evenly false
       (launcher)
       (workspaces)
       (tray)
       (minimised))
     (clock)
-    (box :space-evenly false
+    (box :style "margin-left: 32px"
+         :space-evenly false
+      (updates)
       (box :hexpand true
         (media))
       (box :halign "end"

@@ -1,6 +1,6 @@
 (defwidget microphone []
   (button :onclick "scripts/toggle_window bar_group microphone_window"
-    (icon :char "󰍬" :y "-3" :size "18pt")))
+    (icon :char "󰍬" :y "0" :size "18pt")))
 
 
 (defwindow microphone_window :monitor 0
@@ -8,7 +8,7 @@
                                                  :width "10%"
                                                  :anchor "top right")
                              :stacking "fg"
-  (box :class "root modal"
+  (box :class "root"
        :orientation "v"
        :space-evenly false
 
@@ -17,7 +17,8 @@
              :text "Microphone"))
 
     (for i in mics
-      (button :onclick "scripts/set_default_source ${i.name}"
+      (button :class "background-hover-effect"
+              :onclick "scripts/set_default_source ${i.name}"
         (label :class "${i.default == 'true' ? 'highlight' : ''}"
                :text "${i.description}")))))
 

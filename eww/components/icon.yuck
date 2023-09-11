@@ -1,5 +1,5 @@
-(defwidget icon [char y size]
-  (overlay
+(defwidget icon [char y size ?visible]
+  (overlay :visible visible
     (label :class "invisible"
            :text ".......")
     (transform :translate-y y

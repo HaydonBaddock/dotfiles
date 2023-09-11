@@ -1,0 +1,10 @@
+(defwidget updates []
+  (box :class "subtle"
+       :visible {updates > 0}
+       :spacing 8
+       :space-evenly false
+    (icon :char "󰚰" :y "0" :size "20pt")
+    (label :text updates)))
+
+(defpoll updates :interval "1h" :initial "0"
+  "checkupdates | wc -l")

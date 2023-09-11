@@ -1,3 +1,3 @@
 (defwidget launcher []
   (button :onclick "scripts/toggle_window bar_group && wofi &"
-    (icon :char "󰍉" :y "-4" :size "20pt")))
+    (icon :char "󰍉" :y "0" :size "20pt")))

@@ -11,10 +11,10 @@
                  :text ".....")
           (overlay
             (transform :class "active ${i == active_workspace ? '' : 'invisible'}"
-                       :translate-y "-4px"
+                       :translate-y "0"
               (label :text "◉"))
             (transform :class "inactive ${i == active_workspace ? 'invisible' : ''}"
-                       :translate-y "-7px"
+                       :translate-y "-3px"
               (label :text "⚪"))))))))
 
 

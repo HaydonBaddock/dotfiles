@@ -1,26 +1,29 @@
 (defwidget power []
   (button :onclick "scripts/toggle_window bar_group power_window"
-    (icon :char "󰐥" :y "-4" :size "20pt")))
+    (icon :char "󰐥" :y "0" :size "20pt")))
 
 
 (defwindow power_window :monitor 0
                         :geometry (geometry :x "20%"
                                             :anchor "top right")
                         :stacking "fg"
-  (box :class "root modal"
+  (box :class "root"
        :orientation "v"
        :space-evenly false
-    (button :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl suspend &"
+    (button :class "background-hover-effect"
+            :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl suspend &"
       (box :spacing 16
            :space-evenly false
         (icon :char "󰤄" :y "-3" :size "18pt")
         (label :text "Suspend")))
-    (button :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl reboot &"
+    (button :class "background-hover-effect"
+            :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl reboot &"
       (box :spacing 16
            :space-evenly false
         (icon :char "󰜉" :y "-3" :size "18pt")
         (label :text "Restart")))
-    (button :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl poweroff &"
+    (button :class "background-hover-effect"
+            :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl poweroff &"
       (box :spacing 16
            :space-evenly false
         (icon :char "󰤁" :y "-3" :size "18pt")

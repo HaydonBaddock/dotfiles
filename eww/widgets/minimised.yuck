@@ -1,17 +1,16 @@
 (defwidget minimised []
   (box :class "minimised"
        :halign "center"
-       :spacing 8
        :space-evenly false
     (for i in minimised
-      (button :tooltip "${i.title}"
+      (button :class "background-hover-effect"
+              :style "padding: 2px;"
+              :tooltip "${i.title}"
               :onclick "scripts/show_window ${i.address}"
               :onrightclick "scripts/close_window ${i.address}"
-        (overlay
-          (image :path {i.icon}
-                 :image-width 20
-                 :image-height 20)
-          (box :class "overlay"))))))
+        (image :path {i.icon}
+               :image-width 24
+               :image-height 24)))))
 
 (deflisten minimised
   "scripts/listen_windows special:minimised")

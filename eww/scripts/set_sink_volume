@@ -1,2 +1,16 @@
 #!/bin/bash
-pactl set-sink-volume @DEFAULT_SINK@ $1%
+
+if [ ${1:0:1} = "+" ] || [ ${1:0:1} = "-" ]; then
+    volume=$(~/.config/eww/scripts/get_sink_volume)
+    volume=$(($volume + $1))
+else
+    volume=$1
+fi
+
+if [ $volume -lt 0 ]; then
+    volume=0
+elif [ $volume -gt 100 ]; then
+    volume=100
+fi
+
+pactl set-sink-volume @DEFAULT_SINK@ $volume%
