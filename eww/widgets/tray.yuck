@@ -1,10 +1,11 @@
 (defwidget tray []
   (button :visible "${hidden == '[]' ? 'false' : 'true'}"
           :onclick "scripts/toggle_window bar_group tray_window"
-    (icon :char "󰅀" :y "-2" :size "24pt")))
+    (label :class "icon"
+           :text "󰅀")))
 
 (defwindow tray_window :monitor 0
-                       :geometry (geometry :x "674px"
+                       :geometry (geometry :x "769px"
                                            :anchor "top left")
                        :stacking "fg"
   (box :class "root"

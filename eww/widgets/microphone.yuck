@@ -1,6 +1,7 @@
 (defwidget microphone []
   (button :onclick "scripts/toggle_window bar_group microphone_window"
-    (icon :char "󰍬" :y "0" :size "18pt")))
+    (label :class "icon"
+           :text "󰍬")))
 
 
 (defwindow microphone_window :monitor 0

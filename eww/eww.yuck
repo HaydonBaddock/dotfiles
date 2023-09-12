@@ -1,5 +1,3 @@
-(include "./components/icon.yuck")
-
 (include "./widgets/launcher.yuck")
 (include "./widgets/workspaces.yuck")
 (include "./widgets/tray.yuck")
@@ -20,9 +18,7 @@
                :exclusive true
                :windowtype "dock"
   (centerbox :class "root"
-             :style "padding: 4px 8px"
-    (box :halign "start"
-         :spacing 22
+    (box :spacing 22
          :space-evenly false
       (launcher)
       (workspaces)
@@ -35,7 +31,6 @@
       (box :hexpand true
         (media))
       (box :halign "end"
-           :spacing 8
         (bluetooth)
         (microphone)
         (sound)

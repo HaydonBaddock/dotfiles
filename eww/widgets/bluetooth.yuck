@@ -1,6 +1,7 @@
 (defwidget bluetooth []
   (button :onclick "scripts/toggle_window bar_group bluetooth_window"
-    (icon :char "󰂯" :y "0" :size "18pt")))
+    (label :class "icon"
+           :text "󰂯")))
 
 
 (defwindow bluetooth_window :monitor 0

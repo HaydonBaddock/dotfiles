@@ -4,7 +4,8 @@
        :visible {media != ""}
        :spacing 8
        :space-evenly false
-    (icon :char "󰝚" :y "0" :size "20pt")
+    (label :class "icon"
+           :text "󰝚")
     (label :text media
            :limit-width 50)))
 

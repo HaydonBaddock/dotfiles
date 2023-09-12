@@ -1,10 +1,12 @@
 (defwidget sound []
   (button :onclick "scripts/toggle_window bar_group sound_window"
     (overlay
-      (icon :visible {muted == 'false' && sink_volume > 0}
-            :char "󰕾" :y "0" :size "18pt")
-      (icon :visible {muted == 'true' || sink_volume == 0}
-            :char "󰖁" :y "0" :size "18pt"))))
+      (box :visible {muted == 'false' && sink_volume > 0}
+        (label :class "icon"
+               :text "󰕾"))
+      (box :visible {muted == 'true' || sink_volume == 0}
+        (label :class "icon"
+               :text "󰖁")))))
 
 
 (defwindow sound_window :monitor 0

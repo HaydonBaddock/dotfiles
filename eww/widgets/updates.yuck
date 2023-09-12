@@ -3,7 +3,8 @@
        :visible {updates > 0}
        :spacing 8
        :space-evenly false
-    (icon :char "󰚰" :y "0" :size "20pt")
+    (label :class "icon"
+           :text "󰚰")
     (label :text updates)))
 
 (defpoll updates :interval "1h" :initial "0"

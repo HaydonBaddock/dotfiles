@@ -1,7 +1,7 @@
 monitor=DP-1
 width=400
 yoffset=8
-xoffset=514
+xoffset=600
 allow_images=true
 hide_scroll=true
 prompt=

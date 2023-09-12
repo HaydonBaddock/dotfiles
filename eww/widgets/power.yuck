@@ -1,6 +1,7 @@
 (defwidget power []
   (button :onclick "scripts/toggle_window bar_group power_window"
-    (icon :char "󰐥" :y "0" :size "20pt")))
+    (label :class "icon"
+           :text "󰐥")))
 
 
 (defwindow power_window :monitor 0
@@ -11,20 +12,26 @@
        :orientation "v"
        :space-evenly false
     (button :class "background-hover-effect"
+            :height 32
             :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl suspend &"
-      (box :spacing 16
+      (box :spacing 8
            :space-evenly false
-        (icon :char "󰤄" :y "-3" :size "18pt")
+        (label :class "icon"
+               :text "󰤄")
         (label :text "Suspend")))
     (button :class "background-hover-effect"
+            :height 32
             :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl reboot &"
-      (box :spacing 16
+      (box :spacing 8
            :space-evenly false
-        (icon :char "󰜉" :y "-3" :size "18pt")
+        (label :class "icon"
+               :text "󰜉")
         (label :text "Restart")))
     (button :class "background-hover-effect"
+            :height 32
             :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl poweroff &"
-      (box :spacing 16
+      (box :spacing 8
            :space-evenly false
-        (icon :char "󰤁" :y "-3" :size "18pt")
+        (label :class "icon"
+               :text "󰤁")
         (label :text "Shutdown")))))
