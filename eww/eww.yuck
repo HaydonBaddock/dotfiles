@@ -25,7 +25,7 @@
       (tray)
       (minimised))
     (clock)
-    (box :style "margin-left: 32px"
+    (box :style "margin-left: 32px;"
          :space-evenly false
       (updates)
       (box :hexpand true

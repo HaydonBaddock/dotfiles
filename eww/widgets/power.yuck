@@ -29,6 +29,7 @@
         (label :text "Restart")))
     (button :class "background-hover-effect"
             :height 32
+            :style "padding-right: 12px;"
             :onclick "scripts/toggle_window bar_group power_window && sleep 0.3 && systemctl poweroff &"
       (box :spacing 8
            :space-evenly false

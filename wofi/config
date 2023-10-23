@@ -6,5 +6,4 @@ allow_images=true
 hide_scroll=true
 prompt=
 show=drun
-matching=fuzzy
 insensitive=true

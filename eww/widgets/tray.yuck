@@ -5,7 +5,7 @@
            :text "󰅀")))
 
 (defwindow tray_window :monitor 0
-                       :geometry (geometry :x "769px"
+                       :geometry (geometry :x "770px"
                                            :anchor "top left")
                        :stacking "fg"
   (box :class "root"
@@ -16,7 +16,7 @@
               :style "padding: 2px;"
               :tooltip "${i.title}"
               :onclick "scripts/show_window ${i.address} && scripts/toggle_window bar_group tray_window"
-              :onrightclick "scripts/close_window ${i.address}"
+              :onrightclick "scripts/close_window ${i.address} && scripts/toggle_window bar_group tray_window"
           (image :path {i.icon}
                  :image-width 24
                  :image-height 24)))))
