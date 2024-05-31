@@ -1,4 +1,0 @@
-#!/bin/bash
-active_workspace=$(~/.config/eww/scripts/get_active_workspace)
-active_pair=$(( ($active_workspace+1)/2 ))
-echo $active_pair

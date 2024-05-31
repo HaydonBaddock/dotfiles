@@ -1,4 +1,0 @@
-#!/bin/bash
-active_workspace_pair=$(~/.config/eww/scripts/get_active_workspace_pair)
-dest=$(($active_workspace_pair + $1))
-~/.config/eww/scripts/go_to_workspace_pair $dest

@@ -5,7 +5,7 @@
            :text "󰅀")))
 
 (defwindow tray_window :monitor 0
-                       :geometry (geometry :x "770px"
+                       :geometry (geometry :x "1886px"
                                            :anchor "top left")
                        :stacking "fg"
   (box :class "root"

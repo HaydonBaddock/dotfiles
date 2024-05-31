@@ -1,48 +1,82 @@
 #!/bin/bash
+#
+# Usage:
+# $@: (Optional) Any status to filter to, or out.
+#     eg: Trusted Bonded !Paired
 
-declare -A processed_devices
-first=true
+get_bool() {
+    device_info="$1"
+    status="$2"
+
+    val=$(echo "$device_info" | grep "$status:" | awk '{print $2}')
+    if [ "$val" = "yes" ]; then
+        echo true
+    else
+        echo false
+    fi
+}
+
+print_device() {
+    mac_address="$1"
+    device_info="$2"
+
+    name=$(echo "$device_info" | grep "Name:" | awk -F ': ' '{print $2}')
+    if [ "$name" = "" ]; then
+        return
+    fi
+
+    connected=$(get_bool "$device_info" "Connected")
+    battery=$(echo "$device_info" | grep "Battery Percentage:" | awk -F '[()]' '{print $2}')
+
+    if ! $first; then
+        printf ','
+    fi
+    first=false
+
+    printf '{'
+    printf "\"name\":\"$name\""
+    printf ",\"mac_address\":\"$mac_address\""
+    printf ",\"connected\":$connected"
+    if [ -n "$battery" ]; then
+        printf ",\"battery\":$battery"
+    fi
+    printf '}'
+}
+
+inclusions=()
+exclusions=()
+for arg in "$@"; do
+    if [[ "$arg" == \!* ]]; then
+        stripped=${arg#!}
+        exclusions+=("$stripped")
+    else
+        inclusions+=("$arg")
+    fi
+done
 
 printf '['
 
-# Get connected devices
-connected=$(bluetoothctl devices Connected)
-if [ -n "$connected" ]; then
-    while IFS= read -r line; do
-        mac_address=$(echo "$line" | cut -d' ' -f 2)
+first=true
+devices=$(bluetoothctl devices)
+while IFS= read -r line; do
+    mac_address=$(echo "$line" | cut -d ' ' -f 2)
+    device_info=$(bluetoothctl info "$mac_address")
 
-        if [ "${processed_devices[$mac_address]}" != true ]; then
-            processed_devices["$mac_address"]=true
-
-            if ! $first; then
-                printf ','
-            fi
-            first=false
-
-            name=$(echo "$line" | cut -d' ' -f 3)
-            printf "{\"mac_address\":\"$mac_address\",\"name\":\"$name\",\"connected\":true}"
+    for inclusion in "${inclusions[@]}"; do
+        val=$(get_bool "$device_info" "$inclusion")
+        if ! $val; then
+            continue 2
         fi
-    done <<< "$connected"
-fi
+    done
 
-# Get paired devices
-paired=$(bluetoothctl devices Paired)
-if [ -n "$paired" ]; then
-    while IFS= read -r line; do
-        mac_address=$(echo "$line" | cut -d' ' -f 2)
-
-        if [ "${processed_devices[$mac_address]}" != true ]; then
-            processed_devices["$mac_address"]=true
-
-            if ! $first; then
-                printf ','
-            fi
-            first=false
-
-            name=$(echo "$line" | cut -d' ' -f 3)
-            printf "{\"mac_address\":\"$mac_address\",\"name\":\"$name\",\"connected\":false}"
+    for exclusion in "${exclusions[@]}"; do
+        val=$(get_bool "$device_info" "$exclusion")
+        if $val; then
+            continue 2
         fi
-    done <<< "$paired"
-fi
+    done
+
+    print_device "$mac_address" "$device_info"
+done <<< "$devices"
 
 printf ']\n'

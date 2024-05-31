@@ -1,1 +1,7 @@
 #!/bin/bash
+status=$(rfkill --json | jq -r '.rfkilldevices[] | select(.type == "bluetooth") | .soft' | head -1)
+if [ "$status" = "unblocked" ]; then
+    rfkill block bluetooth
+else
+    rfkill unblock bluetooth
+fi

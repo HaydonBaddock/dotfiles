@@ -1,9 +1,10 @@
 monitor=DP-1
 width=400
 yoffset=8
-xoffset=600
+xoffset=1718
 allow_images=true
 hide_scroll=true
 prompt=
 show=drun
 insensitive=true
+hide_search=true

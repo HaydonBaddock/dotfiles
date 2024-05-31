@@ -5,7 +5,8 @@
 
 
 (defwindow power_window :monitor 0
-                        :geometry (geometry :x "20%"
+                        :geometry (geometry :x "34%"
+                                            :width "3%"
                                             :anchor "top right")
                         :stacking "fg"
   (box :class "root"

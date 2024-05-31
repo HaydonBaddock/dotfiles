@@ -1,0 +1,4 @@
+#!/bin/bash
+active_workspace=$(~/.config/eww/scripts/get_active_workspace)
+dest=$(($active_workspace + $1))
+~/.config/eww/scripts/go_to_workspace $dest

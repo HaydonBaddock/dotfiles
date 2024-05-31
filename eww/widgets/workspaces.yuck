@@ -3,8 +3,8 @@
        :spacing 4
        :space-evenly true
 
-    (for i in workspaces
-      (button :onclick "scripts/go_to_workspace_pair ${i}"
+    (for i in workspace_ids
+      (button :onclick "scripts/go_to_workspace ${i}"
               :onmiddleclick "scripts/move_window ${i}"
         (overlay
           (label :class "invisible"
@@ -18,8 +18,9 @@
               (label :text "⚪"))))))))
 
 
-(defvar workspaces "[1,2,3,4]")
+(deflisten workspace_ids :initial "[1]"
+  "scripts/listen_workspace_ids")
 
 
-(deflisten active_workspace
-  "scripts/listen_active_workspace_pair")
+(deflisten active_workspace :initial "1"
+  "scripts/listen_active_workspace")

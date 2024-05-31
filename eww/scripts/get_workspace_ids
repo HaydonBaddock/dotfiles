@@ -1,0 +1,16 @@
+#!/bin/bash
+count=$(hyprctl -j workspaces | jq -crM "max_by(.id) | .id")
+
+first=true
+printf '['
+for i in $(seq 1 $count); do
+
+    if ! $first; then
+        printf ','
+    fi
+    first=false
+
+    printf $i
+
+done
+printf ']\n'

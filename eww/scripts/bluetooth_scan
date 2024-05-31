@@ -1,0 +1,2 @@
+#!/bin/bash
+bluetoothctl --timeout=$1 scan on

@@ -12,7 +12,7 @@
 
 
 (defwindow bar :monitor 0
-               :geometry (geometry :width "60%"
+               :geometry (geometry :width "33%"
                                    :anchor "top center")
                :stacking "fg"
                :exclusive true
