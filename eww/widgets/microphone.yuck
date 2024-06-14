@@ -5,7 +5,7 @@
 
 
 (defwindow microphone_window :monitor 0
-                             :geometry (geometry :x "34%"
+                             :geometry (geometry :x "33%"
                                                  :width "6%"
                                                  :anchor "top right")
                              :stacking "fg"

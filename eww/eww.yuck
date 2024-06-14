@@ -1,10 +1,8 @@
 (include "./widgets/launcher.yuck")
 (include "./widgets/workspaces.yuck")
-(include "./widgets/tray.yuck")
 (include "./widgets/minimised.yuck")
 (include "./widgets/clock.yuck")
 (include "./widgets/updates.yuck")
-(include "./widgets/media.yuck")
 (include "./widgets/bluetooth.yuck")
 (include "./widgets/microphone.yuck")
 (include "./widgets/sound.yuck")
@@ -12,7 +10,7 @@
 
 
 (defwindow bar :monitor 0
-               :geometry (geometry :width "33%"
+               :geometry (geometry :width "34%"
                                    :anchor "top center")
                :stacking "fg"
                :exclusive true
@@ -22,14 +20,12 @@
          :space-evenly false
       (launcher)
       (workspaces)
-      (tray)
       (minimised))
     (clock)
     (box :style "margin-left: 32px;"
          :space-evenly false
       (updates)
-      (box :hexpand true
-        (media))
+      (box :hexpand true)
       (box :halign "end"
         (bluetooth)
         (microphone)
