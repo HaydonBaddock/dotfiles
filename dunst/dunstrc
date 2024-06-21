@@ -1,8 +1,8 @@
 [global]
 monitor = 1
-width = 565
+width = 614
 notification_limit = 1
-offset = 1144x-36
+offset = 1068x-36
 padding = 8
 horizontal_padding = 12
 frame_width = 0
