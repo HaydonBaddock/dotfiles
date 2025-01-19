@@ -1,8 +1,4 @@
 #!/bin/bash
-#
-# Usage:
-# $@: (Optional) Any status to filter to, or out.
-#     eg: Trusted Bonded !Paired
 
 get_bool() {
     device_info="$1"
@@ -18,7 +14,8 @@ get_bool() {
 
 print_device() {
     mac_address="$1"
-    device_info="$2"
+
+    device_info=$(bluetoothctl info "$mac_address")
 
     name=$(echo "$device_info" | grep "Name:" | awk -F ': ' '{print $2}')
     if [ "$name" = "" ]; then
@@ -26,6 +23,7 @@ print_device() {
     fi
 
     connected=$(get_bool "$device_info" "Connected")
+    trusted=$(get_bool "$device_info" "Trusted")
     battery=$(echo "$device_info" | grep "Battery Percentage:" | awk -F '[()]' '{print $2}')
 
     if ! $first; then
@@ -34,25 +32,15 @@ print_device() {
     first=false
 
     printf '{'
-    printf "\"name\":\"$name\""
-    printf ",\"mac_address\":\"$mac_address\""
+    printf "\"mac_address\":\"$mac_address\""
+    printf ",\"name\":\"$name\""
     printf ",\"connected\":$connected"
+    printf ",\"trusted\":$trusted"
     if [ -n "$battery" ]; then
         printf ",\"battery\":$battery"
     fi
     printf '}'
 }
-
-inclusions=()
-exclusions=()
-for arg in "$@"; do
-    if [[ "$arg" == \!* ]]; then
-        stripped=${arg#!}
-        exclusions+=("$stripped")
-    else
-        inclusions+=("$arg")
-    fi
-done
 
 printf '['
 
@@ -60,23 +48,7 @@ first=true
 devices=$(bluetoothctl devices)
 while IFS= read -r line; do
     mac_address=$(echo "$line" | cut -d ' ' -f 2)
-    device_info=$(bluetoothctl info "$mac_address")
-
-    for inclusion in "${inclusions[@]}"; do
-        val=$(get_bool "$device_info" "$inclusion")
-        if ! $val; then
-            continue 2
-        fi
-    done
-
-    for exclusion in "${exclusions[@]}"; do
-        val=$(get_bool "$device_info" "$exclusion")
-        if $val; then
-            continue 2
-        fi
-    done
-
-    print_device "$mac_address" "$device_info"
+    print_device "$mac_address"
 done <<< "$devices"
 
 printf ']\n'

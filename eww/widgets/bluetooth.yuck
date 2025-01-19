@@ -22,62 +22,22 @@
         (label :text "Bluetooth"))
       (button :hexpand true
               :halign "end"
-              :onclick "scripts/bluetooth_scan 5"
+              :onclick "bluetoothctl --timeout=10 scan on &"
         (label :text "scan")))
 
-    (box :class "title"
-         :orientation "v"
-         :space-evenly false
-      (label :text "Trusted")
-      (for i in trusted_devices
-        (button :class "background-hover-effect"
-                :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
-          (label :class "${i.connected == 'true' ? 'highlight' : ''}"
-                :text "${i.name}"))))
-
-    (box :class "title"
-         :orientation "v"
-         :space-evenly false
-      (label :text "Bonded")
-      (for i in bonded_devices
-        (button :class "background-hover-effect"
-                :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
-          (label :class "${i.connected == 'true' ? 'highlight' : ''}"
-                :text "${i.name}"))))
-
-    (box :class "title"
-         :orientation "v"
-         :space-evenly false
-      (label :text "Paired")
-      (for i in paired_devices
-        (button :class "background-hover-effect"
-                :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
-          (label :class "${i.connected == 'true' ? 'highlight' : ''}"
-                :text "${i.name}"))))
-
-    (box :class "title"
-         :orientation "v"
-         :space-evenly false
-      (label :text "Other")
-      (for i in other_devices
-        (button :class "background-hover-effect"
-                :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address}"
-          (label :class "${i.connected == 'true' ? 'highlight' : ''}"
-                :text "${i.name}"))))))
+      (for i in devices
+        (box :orientation "h"
+             :space-evenly false
+          (button :class "background-hover-effect"
+                  :hexpand true
+                  :onclick "bluetoothctl ${i.connected ? 'disconnect' : 'connect'} ${i.mac_address} &"
+            (label :class "${i.connected == 'true' ? 'highlight' : ''}"
+                  :text "${i.name}"))
+          (button :class "icon"
+                  :onclick "bluetoothctl ${i.trusted ? 'untrust' : 'trust'} ${i.mac_address} &"
+            (label :text "${i.trusted ? '󰶡' : '󰶣'}"))))))
 
 
-(defpoll trusted_devices :interval "1s"
+(defpoll devices :interval "1s"
                          :run-while {bar_group == "bluetooth_window"}
-  "scripts/get_bluetooth_devices Trusted")
-
-(defpoll bonded_devices :interval "1s"
-                        :run-while {bar_group == "bluetooth_window"}
-  "scripts/get_bluetooth_devices Bonded")
-
-(defpoll paired_devices :interval "1s"
-                        :run-while {bar_group == "bluetooth_window"}
-  "scripts/get_bluetooth_devices Paired")
-
-(defpoll other_devices :interval "1s"
-                       :run-while {bar_group == "bluetooth_window"}
-  "scripts/get_bluetooth_devices !Paired !Bonded !Trusted")
+  "scripts/get_bluetooth_devices")
