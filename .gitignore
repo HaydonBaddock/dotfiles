@@ -10,5 +10,7 @@
 !hypr/**
 !kitty/
 !kitty/**
+!mpv/
+!mpv/**
 !wofi/
 !wofi/**
